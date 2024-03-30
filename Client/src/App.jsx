@@ -1,7 +1,25 @@
-import React from 'react'
+import {BrowserRouter, Routes , Route} from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import SignUp from './pages/SignUp'
+import Signin from './pages/Signin'
+import Dashboard from './pages/Dashboard'
+import projects from './pages/projects'
+ 
 
 export default function App() {
   return (
-    <hi className ='text-3xl text-red-500'>app</hi>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/about" element={<About/>} />
+      <Route path ="/Sign-in" element={<Signin />} />
+      <Route path ="/Sign-up" element={<SignUp/>} />
+      <Route path ="/dashboard" element={<Dashboard/>} />
+      <Route path ="/projects" element={<projects/>} />
+
+    </Routes>
+    
+    </BrowserRouter>
   )
 }
