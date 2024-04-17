@@ -1,10 +1,11 @@
 import User from '../models/user.model.js';
+import { errorHandler } from '../utils/error.js';
 
-export const signup = async (req,res) => {
+export const signup = async (req,res, next) => {
   const { userName, name, email, startDate, endDate, noOfDays, location, vehicleType } = req.body;
 
   if (!userName || !name || !email || !startDate || !endDate || !noOfDays || !location || !vehicleType || userName === ''|| name === '' || email === '' || startDate === '' || endDate === '' || noOfDays === '' || location === '' || vehicleType === ''){
-    return res.status(400).json({ message: 'All fields are required'});
+    next(errorHandler(400,'All fields are required'));
   }
 
   const newUser = new User({
@@ -25,6 +26,6 @@ export const signup = async (req,res) => {
     res.json('Signup successful');
   } 
   catch (error){
-    res.status(500).json({message: error.message});
+    next(error);
   }
 };
