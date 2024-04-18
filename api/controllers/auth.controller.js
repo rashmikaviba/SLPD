@@ -1,6 +1,6 @@
 import { json } from "express";
 import bcryptjs from 'bcryptjs';
-import { errorHandler } from "../utils/error";
+import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import User from '../models/user.model.js';
 
