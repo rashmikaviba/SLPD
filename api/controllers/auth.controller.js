@@ -1,7 +1,8 @@
 import User from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
+import { errorHandler } from "../utils/error.js";
 
-export const adddetails = async (req, res) => {
+export const adddetails = async (req, res, next) => {
   const { driverId, name, date, description, paymentId, amount } = req.body;
 
   if (
@@ -18,7 +19,7 @@ export const adddetails = async (req, res) => {
     paymentId === '' ||
     amount === ''
   ) {
-    return res.status(400).json({ message: 'All fields are required' });
+    next(errorHandler(400, 'All fields are required'));
   }
 
   // Convert date string to date object
@@ -40,7 +41,7 @@ export const adddetails = async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       // Handle duplicate key error
-      return res.status(400).json({ message: 'Duplicate driverId. Please use a different driverId.' });
+      next(error);
     } else {
       // Handle other errors
       console.error(error);
