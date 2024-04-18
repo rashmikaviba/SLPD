@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     paymentId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true, 
     },
