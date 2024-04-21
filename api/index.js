@@ -36,10 +36,3 @@ app.use("/api/expenses",expensesRoutes);
 
 
 
-app.delete('/deleteExpense/:id',(res, req) =>{
-  const id  = req.params.id;
-  expenseModel.findByIdAndDelete({_id : id})
-  .then(res => res.json(res))
-  .catch(err => res.json(err))
-})
-

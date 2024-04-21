@@ -7,6 +7,7 @@ const router = express.Router();
 async function getExpense(req, res, next) {
   try {
     const expense = await Expenses.findById(req.params.id);
+   
     if (!expense) {
       return res.status(404).json({ message: 'expense not found' });
     }
@@ -26,7 +27,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
 router.post('/', async (req, res) => {
     try {
       // Create a new product instance using the data sent in the request body
@@ -40,42 +40,43 @@ router.post('/', async (req, res) => {
     }
   });
 
-
-//   // DELETE an expense
-// router.delete('/:id', getExpense, async (req, res) => {
-//   try {
-//     await res.expense.remove();
-//     res.json({ message: 'Expense deleted successfully' });
-//   } catch (error) {
-//     console.error('Error deleting expense:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
-
+  router.delete('/deleteExpense/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      console.log(id)
+      const deletedExpense = await expenseModel.findOneAndDelete({driver_ID:id});
+      if (!deletedExpense) {
+        return res.status(404).json({ message: 'Expense not found' });
+      }
+      res.json({ message: 'Expense deleted successfully', deletedExpense });
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
 router.get('/getExpense/:id',async(req,res) =>{
   let id = req.params.id ;
-
-  await expenseModel.findById(id)
-  .then((expenseModel) =>{
-    res.status(200).send({status:"user fetched" , expenseModel})
+   console.log(id)
+  await Expenses.findOne({ driver_ID: id })
+   .then((expense) =>{
+     res.status(200).send({status:"user fetched" ,"expense": expense})
+    // res.status(200).send(expense)
   }).catch((err) =>{
     res.status(500).send({status:"Error with user",error : err.message});
   })
 })
 
-
 router.put('/updateExpense/:id', async (req, res) => {
   const id = req.params.id;
+  console.log(id)
   try {
-    const updatedExpense = await expenseModel.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedExpense = await expenseModel.findOneAndUpdate({driver_ID:id}, req.body, { new: true });
     res.json(updatedExpense);
   } catch (error) {
     console.error('Error updating expense:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 
 export default router ;

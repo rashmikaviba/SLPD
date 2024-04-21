@@ -33,6 +33,7 @@ export default function CreateExpense() {
       <div className='w-50 bg-white rounded p-3 flex-1'>
         <form className="product-add-form" onSubmit={handleSubmit}>
           <b>Add Expense:-</b>
+          <br></br>
           <div>
             <Label>Driver_ID:</Label>
             <TextInput type="text" name="driver_ID" value={formData.driver_ID} onChange={handleChange} required />
@@ -49,6 +50,12 @@ export default function CreateExpense() {
             <Label>Reason:</Label>
             <TextInput type="text" name="Reason" value={formData.Reason} onChange={handleChange} />
           </div>
+          <br></br>
+          <div>
+            <Label>Image:</Label>
+            <input type="file" name="image" onChange={handleChange} />
+          </div>
+          <br></br>
           <div>
             <Button type="submit">Add Expense</Button>
           </div>
