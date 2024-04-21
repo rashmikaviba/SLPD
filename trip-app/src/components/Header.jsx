@@ -57,10 +57,22 @@ const Header = () => {
             </Link>
             <Link
               to="tripcreate"
-              className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white"
+              className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
             >
               Create Trip
             </Link>
+            <Link
+              to="tripupdate"
+              className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white"
+            >
+              Update Trip
+            </Link>
+            {/* <Link
+              to="tripview"
+              className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white"
+            >
+              View Trip
+            </Link> */}
           </div>
         </div>
       </nav>
