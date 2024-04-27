@@ -29,9 +29,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-      // Create a new product instance using the data sent in the request body
+      // Create a new expense instance using the data sent in the request body
       const newExpense = new Expenses(req.body);
-      // Save the product to the database
+      // Save the expenses to the database
       const savedExpense = await newExpense.save();
       res.status(201).json(savedExpense);
     } catch (error) {
