@@ -1,0 +1,41 @@
+.background-image {
+  background-image: url('../assets/bg.svg'); /* Add your image path here */
+  background-size:contain;
+  /*background-repeat: no-repeat;*/
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+}
+
+.trip-container:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.complete-button:hover,
+.delete-button:hover,
+.view-button:hover {
+  filter: brightness(90%);
+}
+
+.map-container {
+  margin-top: 20px;
+}
+
+/* AvailableTrips.css */
+.search-input {
+  width: 50%;
+  margin: 0 auto;
+  align-content: center;
+  margin-left: 25%;
+  color: black;
+}
+
+
+
+
