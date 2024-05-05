@@ -1,25 +1,48 @@
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import jsPDF from 'jspdf';
 
-export default function TripView() {
-  const [username, setUsername] = useState('');
+export default function TripView({ updateTrips }) {
+  const [searchKey, setSearchKey] = useState('username');
+  const [searchValue, setSearchValue] = useState('');
   const [trip, setTrip] = useState(null);
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setUsername(e.target.value);
+    setSearchValue(e.target.value);
+  };
+
+  const handleKeyChange = (e) => {
+    setSearchKey(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:3000/api/user/trip/${username}`);
+      const response = await axios.get(`http://localhost:3000/api/user/trip/${searchKey}/${searchValue}`);
       setTrip(response.data);
+      updateTrips([response.data]);
+      setError('');
     } catch (error) {
       setError('Trip not found');
     }
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    const tripDetails = [
+      `Username: ${trip.userName}`,
+      `Name: ${trip.name}`,
+      `Email: ${trip.email}`,
+      `Start Date: ${trip.startDate}`,
+      `End Date: ${trip.endDate}`,
+      `Number of Days: ${trip.noOfDays}`,
+      `Location: ${trip.location}`,
+      `Vehicle Type: ${trip.vehicleType}`
+    ];
+    doc.text(tripDetails, 10, 10);
+    doc.save('trip_details.pdf');
   };
 
   return (
@@ -27,10 +50,21 @@ export default function TripView() {
       <h2 className="text-2xl font-bold mb-4">View Trip</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1">Enter Username:</label>
+          <label className="block mb-1">Search By:</label>
+          <select
+            value={searchKey}
+            onChange={handleKeyChange}
+            className="w-full border rounded py-2 px-3"
+          >
+            <option value="username">Username</option>
+            <option value="tripid">Trip ID</option>
+          </select>
+        </div>
+        <div>
+          <label className="block mb-1">Enter {searchKey === 'username' ? 'Username' : 'Trip ID'}:</label>
           <input
             type="text"
-            value={username}
+            value={searchValue}
             onChange={handleChange}
             className="w-full border rounded py-2 px-3"
           />
@@ -43,7 +77,7 @@ export default function TripView() {
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
       {trip && (
-        <div className="mt-8">
+        <div className="mt-8 border rounded-md p-4">
           <h3 className="text-lg font-bold mb-4">Trip Details</h3>
           <p>Username: {trip.userName}</p>
           <p>Name: {trip.name}</p>
@@ -53,6 +87,15 @@ export default function TripView() {
           <p>Number of Days: {trip.noOfDays}</p>
           <p>Location: {trip.location}</p>
           <p>Vehicle Type: {trip.vehicleType}</p>
+          <p>Estimated Budget: LKR {trip.estBudget}</p>
+          <button onClick={downloadPDF} className="bg-green-500 text-white font-bold py-2 px-4 rounded mt-4">
+            Download PDF
+          </button>
+          <Link to={{ pathname: '/tripupdate', state: { trip } }}>
+            <button className="bg-yellow-500 text-white font-bold py-2 px-4 rounded mt-4 ml-4">
+              Update Trip
+            </button>
+          </Link>
         </div>
       )}
     </div>

@@ -1,43 +1,52 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-
+  tripId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   userName: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  email:{
+  email: {
     type: String,
-    required: true,
-    unique: true,
+    required: true
   },
-  startDate:{
-    type: Date,
-    require: true,
+  startDate: {
+    type: String,
+    required: true
   },
-  endDate:{
-    type: Date,
-    required: true,
+  endDate: {
+    type: String,
+    required: true
   },
-  noOfDays:{
+  noOfDays: {
     type: Number,
-    required: true,
+    required: true
   },
-  location:{
+  location: {
     type: String,
-    required: true,
+    required: true
   },
-  vehicleType:{
+  vehicleType: {
     type: String,
-    required: true,
+    required: true
   },
-}, {timeStamps: true}
-);
+  estBudget: {
+    type: Number,
+    required: true
+  },
+  isCompleted: {
+     type: Boolean, 
+     default: false 
+    }
+});
 
 const User = mongoose.model('User', userSchema);
 
