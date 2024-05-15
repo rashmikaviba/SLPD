@@ -1,0 +1,71 @@
+.display-text-center {
+  color: red;
+  text-align: center;
+}
+.CreateBook {
+  background-color: white;
+  min-height: 100vh;
+  color: white;
+}
+
+.ShowBookDetails {
+  background-color: white;
+  min-height: 100vh;
+  color: white;
+}
+
+.UpdateBookInfo {
+  background-color: white;
+  min-height: 100vh;
+  color: white;
+}
+
+.ShowBookList {
+  background-color: rgb(12, 11, 11);
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  min-width: 100px;
+  /* color: white; */
+}
+
+/* BookList Styles */
+.list {
+  display: grid;
+  margin: 20px 0 50px 0;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  grid-gap: 2em;
+}
+
+.card-container {
+  background-color: rgb(90, 90, 39);
+  width: 250px;
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.desc {
+  height: 130px;
+  padding: 10px;
+}
+
+.desc h2 {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.desc h3,
+p {
+  font-weight: 300;
+}
+
+.desc h3 {
+  color: #6c757d;
+  font-size: 1em;
+  padding: 10px 0 10px 0;
+}
